@@ -15,73 +15,106 @@ class Weapon {
   }
   
  takeDamage(damage) {
-   this.durability = this.durability - damage;
+   if(this.durability - damage < 0) {
+        this.durability = 0;
+   } else {
+       this.durability = this.durability - damage
+   }
+ }
+
+ getDamage() {
+     if (this.durability == 'Infinity' || this.durability >= this.durability * 0.3) {
+         return this.attack;
+     } if (this.durability < this.durability * 0.3) {
+         return this.attack / 2;
+     } else {
+         return 0;
+     }
  }
 
   isBroken() {
-    if (durability !== 0) {
+    if (this.durability == 0) {
     return true;
     }
   }
-  /* Скажите, пожалуйста, как правильно мне сделать isBroken()
-  Совершенно не понимаю, как Вы делаете в одну строчку, 
-  и функции вас понимают, что от них хотят
-  */
-  isBroken() {
-    return durability !==0;
-  }
 }
   
-const sword1 = new Weapon('Старый меч', 20, 10, 1);
-  console.log(sword1);
-  /* И тут не знаю, как лучше написать в одну строку, как sword1
-  или объуктом, как arm1 и bow1 */
+class Arm extends Weapon {
+    constructor() {
+        super('Рука', 1, Infinity, 1);
+    }
+}
+class Bow extends Weapon {
+    constructor() {
+        super('Лук', 10, 200, 3);
+    }
+}
+class Sword extends Weapon {
+    constructor() {
+        super('Меч', 25, 500, 1);
+    }
+}
+class Knife extends Weapon {
+    constructor() {
+        super('Нож', 5, 300, 1);
+    }
+}
+class Stick extends Weapon {
+    constructor() {
+        super('Посох', 8, 300, 21);
+    }
+}
+class LongBow extends Bow {
+    constructor() {
+        super();
+        this.name = 'Длинный Лук';
+        this.attack = 15;
+        this.range = 4;
+    }
+}
+class Ax extends Sword {
+    constructor() {
+        super();
+        this.name = 'Секира';
+        this.attack = 27;
+        this.durability = 800;
+    }
+}
+class StickOfStorm extends Stick {
+    constructor() {
+        super();
+        this.name = 'Посох Бури';
+        this.attack = 10;
+        this.range = 3;
+    }
+}
 
-const arm1 = new Weapon({
-  name: 'Рука',
-  attack: 1,
-  durability: Infinity,
-  range: 1,
-});
-  
-const bow1 = new Weapon({
-  name: 'Лук',
-  attack: 10,
-  durability: 200,
-  range: 3,
-});
-  
+let arm1 = new Arm();
+let bow1 = new Bow();
+let sword1 = new Sword();
+let knife1 = new Knife();
+let stick1 = new Stick();
+let longBow1 = new LongBow();
+let ax1 = new Ax();
+let stickOfStorm1 = new StickOfStorm();
+
 arm1.takeDamage(20);
 console.log(arm1.durability); 
- 
+
 bow1.takeDamage(20);
-console.log(bow1.durability); 
-  
+console.log(bow1.durability);
+
 bow1.takeDamage(200);
 console.log(bow1.durability); 
 
-sword1.takeDamage(3);
-console.log(sword.durability); 
-  
-sword1.takeDamage(10);
-console.log(sword1.durability); 
-  
-class Sword extends Weapon {
-  // super; ???
-  //this. ???
-}
-class  Arm extends Weapon {
-}
-class Bow extends Weapon {
-}
-class Knife extends Weapon {
-}
-class Staff extends Weapon {
-}
-
-const stormStaff = new Sword();
-console.log(stormStaff.durability);
-const ax = new Knife();
-console.log(ax.range);
-const longBow = new Bow();
-console.log(longBow.range);
+console.log(bow1.durability); 
+console.log(bow1.getDamage()); 
+console.log(arm1.durability); 
+console.log(bow1.getDamage()); 
+console.log(bow1.durability); 
+console.log(bow1.isBroken()); 
+console.log(arm1.durability); 
+console.log(bow1.isBroken());
+console.log(bow1.name); 
+console.log(bow1.attack); 
+console.log(bow1.range); 
